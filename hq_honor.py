@@ -1,9 +1,10 @@
 import argparse
-import pickle
 
-from ags_save_parser import (
-    cursor as cursor_module,
-    saved_game)
+from ags_save_parser import saved_game
+import compare_saves
+
+def report_honor(save_game):
+    return save_game['scripts']['modules'][1][1][3076]
 
 
 def main():
@@ -12,17 +13,14 @@ def main():
         '--file',
         dest='file',
         default='/home/krieghan/hq_saves/agssave.000.hqthor')
-    parser.add_argument(
-        '--file2',
-        dest='file2',
-        default='/home/krieghan/hq_saves/agssave.001.hqthor')
 
     args = parser.parse_args()
-    save_game_1 = saved_game.get_save_game(
+
+    save_game = saved_game.get_save_game(
             args.file,
             num_characters=69)
-    breakpoint()
-    print()
+    honor = report_honor(save_game)
+    print ("Honor is {}".format(honor))
 
 
 
