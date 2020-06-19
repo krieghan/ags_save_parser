@@ -123,20 +123,22 @@ def get_save_game(filename, num_characters=None):
         save_game['game_struct_base'] =\
             read_game_struct_base(cursor)
 
-    assert (
-        game_struct_base['numcharacters'] == num_characters,
-        'Our guess of num_characters {} did not match what we read '
-        'from the game_struct.  It is unlikely that either of these is '
-        'correct.  Please provide num_characters as an argument'.format(
-            num_characters,
-            game_struct_base['numcharacters']))
-    assert (
-        game_struct_base['numgui'] == guess_numgui,
-        'Our guess of numgui {} did not match what we read from the '
-        'game struct.  It is unlikely that either of these is correct.  '
-        'Please provide numgui as an argument'.format(
-            guess_numgui,
-            game_struct_base['numgui']))
+    '''
+    if game_struct_base['numcharacters'] != num_characters:
+        raise AssertionError(
+            'Our guess of num_characters {} did not match what we read '
+            'from the game_struct.  It is unlikely that either of these is '
+            'correct.  Please provide num_characters as an argument'.format(
+                num_characters,
+                game_struct_base['numcharacters']))
+    if game_struct_base['numgui'] != guess_numgui:
+        raise AssertionError(
+            'Our guess of numgui {} did not match what we read from the '
+            'game struct.  It is unlikely that either of these is correct.  '
+            'Please provide numgui as an argument'.format(
+                guess_numgui,
+                game_struct_base['numgui']))
+    '''
 
 
     save_game['game_struct'] = read_game_struct(cursor, game_struct_base)
